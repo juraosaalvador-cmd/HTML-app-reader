@@ -1,0 +1,6 @@
+{
+  "name": "HTML App Reader",
+  "description": "Leitor dedicado para aplicações HTML locais com suporte nativo completo, ponte JavaScript, modo imersivo e estética hacker terminal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

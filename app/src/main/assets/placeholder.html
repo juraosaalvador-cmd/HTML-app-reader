@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>HTML App Reader - Terminal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            background-color: #0E0E0E;
+            color: #D4D4D4;
+            padding: 24px 18px;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header-ascii {
+            color: #4AF626;
+            font-weight: bold;
+            font-size: 11px;
+            white-space: pre;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            text-shadow: 0 0 10px rgba(74, 246, 38, 0.35);
+        }
+
+        .sys-badge {
+            display: inline-block;
+            background: #161616;
+            border: 1px solid #2A2A2A;
+            color: #7A7A7A;
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-size: 11px;
+            margin-bottom: 16px;
+        }
+
+        .sys-badge span {
+            color: #4AF626;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #2A2A2A;
+            margin: 14px 0;
+        }
+
+        .terminal-block {
+            background: #141414;
+            border: 1px solid #2A2A2A;
+            border-left: 3px solid #4AF626;
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .log-line {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .log-line .prefix {
+            color: #4AF626;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .log-line .status-ok {
+            color: #4AF626;
+            font-weight: bold;
+        }
+
+        .log-line .label {
+            color: #7A7A7A;
+            min-width: 130px;
+        }
+
+        .log-line .val {
+            color: #D4D4D4;
+            word-break: break-all;
+        }
+
+        .prompt-container {
+            margin-top: 18px;
+            background: #111111;
+            border: 1px solid #333333;
+            padding: 14px;
+            border-radius: 4px;
+        }
+
+        .prompt-text {
+            color: #4AF626;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #4AF626;
+            margin-left: 6px;
+            animation: blink 1s step-start infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .instructions {
+            color: #7A7A7A;
+            font-size: 12px;
+            margin-bottom: 14px;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        button {
+            background: transparent;
+            border: 1px solid #3A3A3A;
+            color: #D4D4D4;
+            padding: 10px 12px;
+            font-size: 11px;
+            border-radius: 4px;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.15s ease;
+            font-family: inherit;
+        }
+
+        button:active {
+            border-color: #4AF626;
+            color: #4AF626;
+            background-color: rgba(74, 246, 38, 0.08);
+        }
+
+        #outputConsole {
+            margin-top: 14px;
+            background: #0A0A0A;
+            border: 1px dashed #2A2A2A;
+            padding: 10px;
+            color: #8E8E8E;
+            font-size: 11px;
+            white-space: pre-wrap;
+            display: none;
+            max-height: 160px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-ascii">
+ _   _ _____ __  __ _        ____  _____    _    ____  _____ ____  
+| | | |_   _|  \/  | |      |  _ \| ____|  / \  |  _ \| ____|  _ \ 
+| |_| | | | | |\/| | |      | |_) |  _|   / _ \ | | | |  _| | |_) |
+|  _  | | | | |  | | |___   |  _ <| |___ / ___ \| |_| | |___|  _ &lt; 
+|_| |_| |_| |_|  |_|_____|  |_| \_\_____/_/   \_\____/|_____|_| \_\
+    </div>
+
+    <div class="sys-badge">STATUS: <span>ONLINE</span> | CORE: <span>WEBKIT_V2</span> | HARDWARE_ACCEL: <span>ENABLED</span></div>
+
+    <div class="terminal-block">
+        <div class="log-line">
+            <span class="prefix">&gt;</span>
+            <span class="label">ENGINE:</span>
+            <span class="val">Android WebView Chromium / V8</span>
+        </div>
+        <div class="log-line">
+            <span class="prefix">&gt;</span>
+            <span class="label">WEBGL 3D:</span>
+            <span class="status-ok" id="webglStatus">VERIFICANDO...</span>
+        </div>
+        <div class="log-line">
+            <span class="prefix">&gt;</span>
+            <span class="label">LOCAL DOM:</span>
+            <span class="status-ok">localStorage, IndexedDB [HABILITADO]</span>
+        </div>
+        <div class="log-line">
+            <span class="prefix">&gt;</span>
+            <span class="label">NATIVE BRIDGE:</span>
+            <span class="status-ok" id="bridgeStatus">CONECTANDO...</span>
+        </div>
+        <div class="log-line">
+            <span class="prefix">&gt;</span>
+            <span class="label">DISPOSITIVO:</span>
+            <span class="val" id="deviceInfo">Lendo telemetria...</span>
+        </div>
+    </div>
+
+    <div class="prompt-container">
+        <div class="prompt-text">
+            <span>&gt; SELECIONE UM APP NA BARRA LATERAL</span>
+            <span class="cursor"></span>
+        </div>
+        <p class="instructions">
+            Deslize a partir da borda esquerda ou toque no botão <b>[≡]</b> para acessar seus apps instalados, importar pacotes HTML/ZIP ou adicionar por URL remota.
+        </p>
+
+        <div class="btn-grid">
+            <button onclick="testNativeToast()">&gt; Testar Notificação</button>
+            <button onclick="testDeviceInfo()">&gt; Informações do SO</button>
+            <button onclick="testListFiles()">&gt; Listar Arquivos</button>
+            <button onclick="testCanvas()">&gt; Teste WebGL/Canvas</button>
+        </div>
+
+        <div id="outputConsole"></div>
+    </div>
+
+    <script>
+        function logToConsole(text) {
+            const out = document.getElementById('outputConsole');
+            out.style.display = 'block';
+            out.textContent = `[${new Date().toLocaleTimeString()}] ${text}\n` + out.textContent;
+        }
+
+        // Check WebGL
+        try {
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (gl) {
+                document.getElementById('webglStatus').textContent = 'ATIVO / HARDWARE READY';
+            } else {
+                document.getElementById('webglStatus').textContent = 'CANVAS 2D APENAS';
+            }
+        } catch(e) {
+            document.getElementById('webglStatus').textContent = 'ERRO';
+        }
+
+        // Check AndroidNative Bridge
+        if (window.AndroidNative) {
+            document.getElementById('bridgeStatus').textContent = 'AndroidNative DISPONÍVEL';
+            try {
+                const infoStr = window.AndroidNative.getDeviceInfo();
+                const info = JSON.parse(infoStr);
+                document.getElementById('deviceInfo').textContent = `${info.model} (Android ${info.osVersion}, API ${info.apiLevel})`;
+            } catch(e) {
+                document.getElementById('deviceInfo').textContent = 'Bridge conectado (sem telemetria)';
+            }
+        } else {
+            document.getElementById('bridgeStatus').textContent = 'OFFLINE (STANDALONE)';
+            document.getElementById('deviceInfo').textContent = navigator.userAgent;
+        }
+
+        function testNativeToast() {
+            if (window.AndroidNative && window.AndroidNative.notify) {
+                window.AndroidNative.notify('HTML App Reader: Ponte JavaScript ativa!');
+                logToConsole('Chamou AndroidNative.notify() com sucesso.');
+            } else {
+                alert('Ponte AndroidNative não disponível neste contexto.');
+                logToConsole('AndroidNative.notify indisponível.');
+            }
+        }
+
+        function testDeviceInfo() {
+            if (window.AndroidNative && window.AndroidNative.getDeviceInfo) {
+                const res = window.AndroidNative.getDeviceInfo();
+                logToConsole('Dispositivo:\n' + res);
+            } else {
+                logToConsole('Navegador: ' + navigator.userAgent);
+            }
+        }
+
+        function testListFiles() {
+            if (window.AndroidNative && window.AndroidNative.listFiles) {
+                const res = window.AndroidNative.listFiles();
+                logToConsole('Arquivos no storage:\n' + res);
+            } else {
+                logToConsole('Bridge listFiles indisponível.');
+            }
+        }
+
+        function testCanvas() {
+            logToConsole('Renderizando teste gráfico 2D/WebGL inline...');
+            if (window.AndroidNative) {
+                window.AndroidNative.notify('Canvas 60fps ok');
+            }
+        }
+    </script>
+</body>
+</html>

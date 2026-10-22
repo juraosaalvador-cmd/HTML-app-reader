@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/term_background"
+    tools:context=".MainActivity">
+
+    <!-- Conteúdo Principal com a WebView e controles flutuantes -->
+    <FrameLayout
+        android:id="@+id/mainContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Visualizador da Aplicação HTML -->
+        <com.example.web.WebAppView
+            android:id="@+id/webAppView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Barra flutuante de controles discretos (Hacker style) -->
+        <LinearLayout
+            android:id="@+id/floatingControlsBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="12dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Botão de Menu Lateral (≡ fino, discreto) -->
+            <ImageButton
+                android:id="@+id/btnMenuToggle"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_floating_button"
+                android:src="@drawable/ic_menu_hacker"
+                android:padding="9dp"
+                android:alpha="0.75"
+                android:contentDescription="@string/menu_toggle" />
+
+            <!-- Botão de Alternar Tela Cheia (⛶) -->
+            <ImageButton
+                android:id="@+id/btnFullscreenToggle"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_floating_button"
+                android:src="@drawable/ic_fullscreen_enter"
+                android:padding="9dp"
+                android:alpha="0.75"
+                android:contentDescription="@string/fullscreen_toggle" />
+
+            <!-- Botão de Recarregar / Terminal Home -->
+            <ImageButton
+                android:id="@+id/btnReload"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_floating_button"
+                android:src="@drawable/ic_refresh"
+                android:padding="9dp"
+                android:alpha="0.75"
+                android:contentDescription="@string/action_open" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Barra Lateral Deslizante (Drawer Terminal) -->
+    <LinearLayout
+        android:id="@+id/drawerPanel"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/term_surface"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Cabeçalho Compacto do Drawer -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@color/term_background">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title_html_app_reader"
+                android:textColor="@color/term_green"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:id="@+id/tvAppCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="0 apps instalados"
+                android:textColor="@color/term_text_secondary"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/term_border" />
+
+        <!-- Lista de Apps Instalados -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewApps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:clipToPadding="false" />
+
+        <!-- Seção de Apps vazia -->
+        <TextView
+            android:id="@+id/tvEmptyState"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="> Nenhum app instalado.\nImporte um arquivo .html/.zip ou insira uma URL."
+            android:textColor="@color/term_text_muted"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="12sp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/term_border" />
+
+        <!-- Ações Fixas Inferiores -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="@color/term_surface_elevated">
+
+            <Button
+                android:id="@+id/btnImportFile"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_terminal_button"
+                android:text="@string/action_import_file"
+                android:textColor="@color/term_text_primary"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnImportUrl"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_terminal_button"
+                android:text="@string/action_import_url"
+                android:textColor="@color/term_text_primary"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Rodapé Discreto -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@color/term_background"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/nav_footer_version"
+                android:textColor="@color/term_text_muted"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tvSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="[ Sobre ]"
+                android:textColor="@color/term_green"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="term_background">#0E0E0E</color>
+    <color name="term_surface">#161616</color>
+    <color name="term_surface_elevated">#1E1E1E</color>
+    <color name="term_border">#2A2A2A</color>
+    <color name="term_border_light">#3A3A3A</color>
+    <color name="term_text_primary">#D4D4D4</color>
+    <color name="term_text_secondary">#7A7A7A</color>
+    <color name="term_text_muted">#4E4E4E</color>
+    <color name="term_green">#4AF626</color>
+    <color name="term_green_dim">#1A4A12</color>
+    <color name="term_green_glow">#334AF626</color>
+    <color name="term_error">#A03030</color>
+    <color name="term_error_bg">#2A1212</color>
+    <color name="term_overlay">#80000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

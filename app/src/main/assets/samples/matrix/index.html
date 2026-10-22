@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Matrix Rain Canvas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background: #000; }
+        canvas { display: block; width: 100%; height: 100%; }
+        .controls {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            background: rgba(14, 14, 14, 0.85);
+            padding: 10px 18px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            z-index: 10;
+        }
+        button {
+            background: transparent;
+            color: #4AF626;
+            border: 1px solid #4AF626;
+            padding: 8px 14px;
+            font-family: monospace;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+        button:active {
+            background: #4AF626;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="controls">
+        <button onclick="changeColor()">&gt; Cor</button>
+        <button onclick="speedUp()">&gt; Velocidade</button>
+        <button onclick="exitApp()">&gt; Sair</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+        const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%&_<>~';
+        const alphabet = katakana + latin;
+
+        const fontSize = 16;
+        let columns = Math.floor(canvas.width / fontSize);
+        let rainDrops = Array(columns).fill(1);
+
+        let colors = ['#4AF626', '#00FFFF', '#FF0055', '#FFFFFF'];
+        let colorIdx = 0;
+        let speed = 33;
+        let intervalId;
+
+        function render() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = colors[colorIdx];
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        function startLoop() {
+            if (intervalId) clearInterval(intervalId);
+            intervalId = setInterval(render, speed);
+        }
+        startLoop();
+
+        function changeColor() {
+            colorIdx = (colorIdx + 1) % colors.length;
+            if (window.AndroidNative && window.AndroidNative.notify) {
+                window.AndroidNative.notify("Matriz: Paleta alterada!");
+            }
+        }
+
+        function speedUp() {
+            speed = speed === 33 ? 15 : (speed === 15 ? 60 : 33);
+            startLoop();
+        }
+
+        function exitApp() {
+            if (window.AndroidNative && window.AndroidNative.exitApp) {
+                window.AndroidNative.exitApp();
+            } else {
+                history.back();
+            }
+        }
+    </script>
+</body>
+</html>

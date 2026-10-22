@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:id="@+id/cardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_terminal_card"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <!-- Barra indicadora do app ativo -->
+        <View
+            android:id="@+id/activeIndicator"
+            android:layout_width="3dp"
+            android:layout_height="36dp"
+            android:background="@color/term_green"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+        <!-- Caixa de Ícone / Letra inicial -->
+        <FrameLayout
+            android:id="@+id/iconBox"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/bg_app_icon_placeholder">
+
+            <TextView
+                android:id="@+id/tvIconLetter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/term_green"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="M" />
+        </FrameLayout>
+
+        <!-- Informações do App -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/term_text_primary"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Matrix Rain Canvas" />
+
+            <TextView
+                android:id="@+id/tvAppSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/term_text_secondary"
+                android:fontFamily="@font/jetbrains_mono"
+                android:textSize="11sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="Última execução: há 2 dias" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvOpenCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge"
+                    android:paddingStart="4dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="1dp"
+                    android:textColor="@color/term_green"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:textSize="10sp"
+                    tools:text="4 execuções" />
+
+                <TextView
+                    android:id="@+id/tvSourceType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/bg_badge"
+                    android:paddingStart="4dp"
+                    android:paddingTop="1dp"
+                    android:paddingEnd="4dp"
+                    android:paddingBottom="1dp"
+                    android:textColor="@color/term_text_muted"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:textSize="10sp"
+                    tools:text="ZIP" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Botão de opções (···) -->
+        <ImageButton
+            android:id="@+id/btnOptions"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_more_vert"
+            android:contentDescription="@string/action_open" />
+    </LinearLayout>
+</FrameLayout>

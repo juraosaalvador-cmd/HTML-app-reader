@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Hacker Scratchpad</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: monospace; }
+        body { background: #0E0E0E; color: #D4D4D4; padding: 18px; display: flex; flex-direction: column; height: 100vh; }
+        h2 { color: #4AF626; font-size: 15px; margin-bottom: 8px; }
+        .meta { color: #7A7A7A; font-size: 11px; margin-bottom: 12px; }
+        textarea {
+            flex: 1;
+            background: #161616;
+            color: #4AF626;
+            border: 1px solid #2A2A2A;
+            padding: 12px;
+            font-family: inherit;
+            font-size: 13px;
+            resize: none;
+            outline: none;
+            border-radius: 4px;
+        }
+        .bar { display: flex; gap: 8px; margin-top: 10px; }
+        button {
+            flex: 1;
+            background: transparent;
+            color: #D4D4D4;
+            border: 1px solid #3A3A3A;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:active { border-color: #4AF626; color: #4AF626; }
+    </style>
+</head>
+<body>
+    <h2>// HACKER SCRATCHPAD</h2>
+    <div class="meta" id="statusInfo">Offline Storage + Native I/O Bridge</div>
+    <textarea id="noteContent" placeholder="// Digite código, anotações ou payloads aqui..."></textarea>
+    <div class="bar">
+        <button onclick="saveNote()">&gt; Salvar Disco</button>
+        <button onclick="loadNote()">&gt; Carregar</button>
+        <button onclick="clearNote()">&gt; Limpar</button>
+    </div>
+
+    <script>
+        const textarea = document.getElementById('noteContent');
+        const statusInfo = document.getElementById('statusInfo');
+
+        // Load from localStorage as cache
+        const cached = localStorage.getItem('scratchpad_data');
+        if (cached) {
+            textarea.value = cached;
+        }
+
+        textarea.addEventListener('input', () => {
+            localStorage.setItem('scratchpad_data', textarea.value);
+        });
+
+        function saveNote() {
+            const content = textarea.value;
+            if (window.AndroidNative && window.AndroidNative.saveFile) {
+                const res = window.AndroidNative.saveFile('scratchpad.txt', content);
+                if (res) {
+                    window.AndroidNative.notify('Arquivo salvo via NativeBridge!');
+                    statusInfo.textContent = 'Salvo em: /data/.../scratchpad.txt às ' + new Date().toLocaleTimeString();
+                } else {
+                    window.AndroidNative.notify('Erro ao salvar no arquivo.');
+                }
+            } else {
+                localStorage.setItem('scratchpad_data', content);
+                alert('Salvo no localStorage (NativeBridge offline).');
+            }
+        }
+
+        function loadNote() {
+            if (window.AndroidNative && window.AndroidNative.readFile) {
+                const content = window.AndroidNative.readFile('scratchpad.txt');
+                if (content && content.length > 0) {
+                    textarea.value = content;
+                    window.AndroidNative.notify('Carregado com sucesso!');
+                    statusInfo.textContent = 'Carregado de scratchpad.txt às ' + new Date().toLocaleTimeString();
+                } else {
+                    window.AndroidNative.notify('Arquivo scratchpad.txt vazio ou inexistente.');
+                }
+            } else {
+                textarea.value = localStorage.getItem('scratchpad_data') || '';
+            }
+        }
+
+        function clearNote() {
+            if (confirm('Deseja limpar o editor?')) {
+                textarea.value = '';
+                localStorage.removeItem('scratchpad_data');
+            }
+        }
+    </script>
+</body>
+</html>

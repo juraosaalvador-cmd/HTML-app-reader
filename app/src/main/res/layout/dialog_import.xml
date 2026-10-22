@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_terminal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título do Diálogo -->
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_import_title"
+        android:textColor="@color/term_green"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/term_border" />
+
+    <!-- Seletor de Modo: Arquivo / URL -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnTabFile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_terminal_button_primary"
+            android:text="ARQUIVO LOCAL"
+            android:textColor="@color/black"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnTabUrl"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_terminal_button"
+            android:text="URL REMOTA"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <!-- Conteúdo da Aba Arquivo -->
+    <LinearLayout
+        android:id="@+id/layoutFileSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecione um arquivo .html único ou um arquivo compactado .zip contendo sua aplicação web completa."
+            android:textColor="@color/term_text_secondary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnChooseFile"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_terminal_button"
+            android:text="[ BUSCAR ARQUIVO .HTML / .ZIP ]"
+            android:textColor="@color/term_green"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tvSelectedFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nenhum arquivo selecionado"
+            android:textColor="@color/term_text_muted"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/label_app_name"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etFileName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_terminal_card"
+            android:hint="Nome do App (opcional)"
+            android:textColorHint="@color/term_text_muted"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="12sp"
+            android:padding="8dp"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <!-- Conteúdo da Aba URL -->
+    <LinearLayout
+        android:id="@+id/layoutUrlSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Digite o endereço da página web para baixar o HTML e salvá-lo no armazenamento offline local."
+            android:textColor="@color/term_text_secondary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/label_url"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etUrlInput"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_terminal_card"
+            android:hint="https://exemplo.com/app.html"
+            android:textColorHint="@color/term_text_muted"
+            android:textColor="@color/term_green"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="12sp"
+            android:padding="8dp"
+            android:inputType="textUri" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/label_app_name"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/etUrlAppName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_terminal_card"
+            android:hint="Nome do App (opcional)"
+            android:textColorHint="@color/term_text_muted"
+            android:textColor="@color/term_text_primary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="12sp"
+            android:padding="8dp"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <!-- Indicador de Status / Progresso -->
+    <TextView
+        android:id="@+id/tvImportStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/term_green"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pbImportProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="6dp"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- Botões de Ação -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_terminal_button"
+            android:text="@string/action_cancel"
+            android:textColor="@color/term_text_secondary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnExecuteImport"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_terminal_button_primary"
+            android:text="INSTALAR"
+            android:textColor="@color/black"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

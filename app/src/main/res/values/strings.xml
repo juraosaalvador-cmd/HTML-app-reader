@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HTML App Reader</string>
+    <string name="title_html_app_reader">HTML APP READER</string>
+    <string name="subtitle_installed_apps">%1$d apps instalados</string>
+    <string name="action_import_file">+ IMPORTAR HTML/ZIP</string>
+    <string name="action_import_url">+ ADICIONAR POR URL</string>
+    <string name="action_open">Executar</string>
+    <string name="action_rename">Renomear</string>
+    <string name="action_folder">Ver pasta</string>
+    <string name="action_delete">Excluir</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_confirm">Confirmar</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_close">Fechar</string>
+    <string name="confirm_close_app_title">FECHAR APP?</string>
+    <string name="confirm_close_app_msg">Deseja encerrar a aplicação atual e voltar ao terminal?</string>
+    <string name="confirm_delete_title">EXCLUIR APP?</string>
+    <string name="confirm_delete_msg">A pasta física e todos os arquivos deste app serão apagados permanentemente.</string>
+    <string name="dialog_import_title">INSTALAR APLICAÇÃO HTML</string>
+    <string name="dialog_rename_title">RENOMEAR APLICAÇÃO</string>
+    <string name="dialog_details_title">DETALHES DO PACOTE</string>
+    <string name="import_tab_file">Arquivo (.html / .zip)</string>
+    <string name="import_tab_url">URL Remota</string>
+    <string name="label_app_name">Nome da aplicação:</string>
+    <string name="label_url">URL da aplicação (ex: https://...):</string>
+    <string name="btn_select_file">SELECIONAR ARQUIVO NO DISCO</string>
+    <string name="btn_download_install">BAIXAR E INSTALAR</string>
+    <string name="status_downloading">Baixando assets...</string>
+    <string name="status_installing">Extraindo e instalando...</string>
+    <string name="status_ready">Instalação concluída com sucesso!</string>
+    <string name="error_file_read">Falha ao ler o arquivo selecionado.</string>
+    <string name="error_invalid_html">Nenhum arquivo HTML válido encontrado.</string>
+    <string name="error_invalid_url">URL inválida ou inacessível.</string>
+    <string name="error_install_failed">Falha na instalação: %1$s</string>
+    <string name="desc_last_opened">Última execução: %1$s</string>
+    <string name="desc_open_count">Execuções: %1$d</string>
+    <string name="desc_app_id">ID: %1$s</string>
+    <string name="desc_files_count">Arquivos na pasta: %1$d</string>
+    <string name="nav_footer_version">v1.0.0-terminal</string>
+    <string name="settings_info">Configurações &amp; Sobre</string>
+    <string name="fullscreen_toggle">Alternar tela cheia</string>
+    <string name="menu_toggle">Abrir menu lateral</string>
+</resources>

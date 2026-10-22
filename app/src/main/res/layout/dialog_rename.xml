@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_terminal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_rename_title"
+        android:textColor="@color/term_green"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/term_border" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Digite o novo identificador visual para a aplicação:"
+        android:textColor="@color/term_text_secondary"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="11sp" />
+
+    <EditText
+        android:id="@+id/etRenameInput"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_terminal_card"
+        android:textColor="@color/term_text_primary"
+        android:fontFamily="@font/jetbrains_mono"
+        android:textSize="13sp"
+        android:padding="8dp"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancelRename"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_terminal_button"
+            android:text="@string/action_cancel"
+            android:textColor="@color/term_text_secondary"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp" />
+
+        <Button
+            android:id="@+id/btnConfirmRename"
+            android:layout_width="0dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_terminal_button_primary"
+            android:text="@string/action_save"
+            android:textColor="@color/black"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
